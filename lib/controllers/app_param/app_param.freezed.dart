@@ -19,6 +19,10 @@ mixin _$AppParamState {
   List<TokyoTrainModel> get keepTokyoTrainList =>
       throw _privateConstructorUsedError;
 
+  ///
+  double get currentZoom => throw _privateConstructorUsedError;
+  int get currentPaddingIndex => throw _privateConstructorUsedError;
+
   /// Create a copy of AppParamState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -32,7 +36,10 @@ abstract class $AppParamStateCopyWith<$Res> {
           AppParamState value, $Res Function(AppParamState) then) =
       _$AppParamStateCopyWithImpl<$Res, AppParamState>;
   @useResult
-  $Res call({List<TokyoTrainModel> keepTokyoTrainList});
+  $Res call(
+      {List<TokyoTrainModel> keepTokyoTrainList,
+      double currentZoom,
+      int currentPaddingIndex});
 }
 
 /// @nodoc
@@ -51,12 +58,22 @@ class _$AppParamStateCopyWithImpl<$Res, $Val extends AppParamState>
   @override
   $Res call({
     Object? keepTokyoTrainList = null,
+    Object? currentZoom = null,
+    Object? currentPaddingIndex = null,
   }) {
     return _then(_value.copyWith(
       keepTokyoTrainList: null == keepTokyoTrainList
           ? _value.keepTokyoTrainList
           : keepTokyoTrainList // ignore: cast_nullable_to_non_nullable
               as List<TokyoTrainModel>,
+      currentZoom: null == currentZoom
+          ? _value.currentZoom
+          : currentZoom // ignore: cast_nullable_to_non_nullable
+              as double,
+      currentPaddingIndex: null == currentPaddingIndex
+          ? _value.currentPaddingIndex
+          : currentPaddingIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -69,7 +86,10 @@ abstract class _$$AppParamStateImplCopyWith<$Res>
       __$$AppParamStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TokyoTrainModel> keepTokyoTrainList});
+  $Res call(
+      {List<TokyoTrainModel> keepTokyoTrainList,
+      double currentZoom,
+      int currentPaddingIndex});
 }
 
 /// @nodoc
@@ -86,12 +106,22 @@ class __$$AppParamStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? keepTokyoTrainList = null,
+    Object? currentZoom = null,
+    Object? currentPaddingIndex = null,
   }) {
     return _then(_$AppParamStateImpl(
       keepTokyoTrainList: null == keepTokyoTrainList
           ? _value._keepTokyoTrainList
           : keepTokyoTrainList // ignore: cast_nullable_to_non_nullable
               as List<TokyoTrainModel>,
+      currentZoom: null == currentZoom
+          ? _value.currentZoom
+          : currentZoom // ignore: cast_nullable_to_non_nullable
+              as double,
+      currentPaddingIndex: null == currentPaddingIndex
+          ? _value.currentPaddingIndex
+          : currentPaddingIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -101,7 +131,9 @@ class __$$AppParamStateImplCopyWithImpl<$Res>
 class _$AppParamStateImpl implements _AppParamState {
   const _$AppParamStateImpl(
       {final List<TokyoTrainModel> keepTokyoTrainList =
-          const <TokyoTrainModel>[]})
+          const <TokyoTrainModel>[],
+      this.currentZoom = 0,
+      this.currentPaddingIndex = 5})
       : _keepTokyoTrainList = keepTokyoTrainList;
 
   final List<TokyoTrainModel> _keepTokyoTrainList;
@@ -114,9 +146,17 @@ class _$AppParamStateImpl implements _AppParamState {
     return EqualUnmodifiableListView(_keepTokyoTrainList);
   }
 
+  ///
+  @override
+  @JsonKey()
+  final double currentZoom;
+  @override
+  @JsonKey()
+  final int currentPaddingIndex;
+
   @override
   String toString() {
-    return 'AppParamState(keepTokyoTrainList: $keepTokyoTrainList)';
+    return 'AppParamState(keepTokyoTrainList: $keepTokyoTrainList, currentZoom: $currentZoom, currentPaddingIndex: $currentPaddingIndex)';
   }
 
   @override
@@ -125,12 +165,19 @@ class _$AppParamStateImpl implements _AppParamState {
         (other.runtimeType == runtimeType &&
             other is _$AppParamStateImpl &&
             const DeepCollectionEquality()
-                .equals(other._keepTokyoTrainList, _keepTokyoTrainList));
+                .equals(other._keepTokyoTrainList, _keepTokyoTrainList) &&
+            (identical(other.currentZoom, currentZoom) ||
+                other.currentZoom == currentZoom) &&
+            (identical(other.currentPaddingIndex, currentPaddingIndex) ||
+                other.currentPaddingIndex == currentPaddingIndex));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_keepTokyoTrainList));
+      runtimeType,
+      const DeepCollectionEquality().hash(_keepTokyoTrainList),
+      currentZoom,
+      currentPaddingIndex);
 
   /// Create a copy of AppParamState
   /// with the given fields replaced by the non-null parameter values.
@@ -143,10 +190,18 @@ class _$AppParamStateImpl implements _AppParamState {
 
 abstract class _AppParamState implements AppParamState {
   const factory _AppParamState(
-      {final List<TokyoTrainModel> keepTokyoTrainList}) = _$AppParamStateImpl;
+      {final List<TokyoTrainModel> keepTokyoTrainList,
+      final double currentZoom,
+      final int currentPaddingIndex}) = _$AppParamStateImpl;
 
   @override
   List<TokyoTrainModel> get keepTokyoTrainList;
+
+  ///
+  @override
+  double get currentZoom;
+  @override
+  int get currentPaddingIndex;
 
   /// Create a copy of AppParamState
   /// with the given fields replaced by the non-null parameter values.

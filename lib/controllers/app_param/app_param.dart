@@ -10,8 +10,13 @@ part 'app_param.g.dart';
 
 @freezed
 class AppParamState with _$AppParamState {
-  const factory AppParamState({@Default(<TokyoTrainModel>[]) List<TokyoTrainModel> keepTokyoTrainList}) =
-      _AppParamState;
+  const factory AppParamState({
+    @Default(<TokyoTrainModel>[]) List<TokyoTrainModel> keepTokyoTrainList,
+
+    ///
+    @Default(0) double currentZoom,
+    @Default(5) int currentPaddingIndex,
+  }) = _AppParamState;
 }
 
 @riverpod
@@ -24,4 +29,9 @@ class AppParam extends _$AppParam {
 
   ///
   void setKeepTokyoTrainList({required List<TokyoTrainModel> list}) => state = state.copyWith(keepTokyoTrainList: list);
+
+  //===================================================
+
+  ///
+  void setCurrentZoom({required double zoom}) => state = state.copyWith(currentZoom: zoom);
 }
