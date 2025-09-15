@@ -21,13 +21,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with ControllersMixin<H
     });
 
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Text('HomeScreen'),
+      appBar: AppBar(
+        title: Text('Tokyo Train List'),
 
-            Expanded(child: displayTokyoTrainList()),
-          ],
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.stacked_line_chart))],
+      ),
+
+      body: SafeArea(
+        child: DefaultTextStyle(
+          style: TextStyle(fontSize: 12),
+
+          child: Column(children: [Expanded(child: displayTokyoTrainList())]),
         ),
       ),
     );
@@ -37,9 +41,70 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with ControllersMixin<H
   Widget displayTokyoTrainList() {
     final List<Widget> list = <Widget>[];
 
-    appParamState.keepTokyoTrainList.forEach((element) {
-      list.add(Text(element.trainName));
-    });
+    for (var element in appParamState.keepTokyoTrainList) {
+      List<Widget> list2 = <Widget>[];
+
+      for (var element2 in element.station) {
+        list2.add(
+          Container(
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.white.withValues(alpha: 0.2))),
+            ),
+
+            padding: EdgeInsets.all(2),
+
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(element2.stationName),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [Text(element2.lat.toString()), Text(element2.lng.toString())],
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+
+      list.add(
+        Stack(
+          children: [
+            Container(height: 70, decoration: BoxDecoration(color: Colors.yellowAccent.withValues(alpha: 0.1))),
+
+            Container(
+              decoration: BoxDecoration(border: Border.all(color: Colors.white.withValues(alpha: 0.2))),
+              margin: EdgeInsets.all(5),
+              padding: EdgeInsets.all(5),
+
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(element.trainName),
+
+                      IconButton(onPressed: () {}, icon: Icon(Icons.stacked_line_chart)),
+                    ],
+                  ),
+
+                  SizedBox(height: 20),
+
+                  Row(
+                    children: [
+                      SizedBox(width: 50),
+
+                      Expanded(child: Column(children: list2)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
 
     return CustomScrollView(
       slivers: <Widget>[
