@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tokyo_station/controllers/controllers_mixin.dart';
-import 'package:tokyo_station/models/tokyo_train_model.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../controllers/controllers_mixin.dart';
+import '../models/tokyo_train_model.dart';
+import 'components/train_map_alert.dart';
+import 'parts/tokyo_train_dialog.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key, required this.tokyoTrainList});
@@ -22,16 +26,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with ControllersMixin<H
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tokyo Train List'),
+        title: const Text('Tokyo Train List'),
 
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.stacked_line_chart))],
+        actions: <Widget>[
+          IconButton(onPressed: () {}, icon: const Icon(FontAwesomeIcons.sun)),
+
+          IconButton(
+            onPressed: () {
+              TokyoTrainDialog(context: context, widget: const TrainMapAlert());
+            },
+            icon: const Icon(Icons.stacked_line_chart),
+          ),
+        ],
       ),
 
       body: SafeArea(
         child: DefaultTextStyle(
-          style: TextStyle(fontSize: 12),
+          style: const TextStyle(fontSize: 12),
 
-          child: Column(children: [Expanded(child: displayTokyoTrainList())]),
+          child: Column(children: <Widget>[Expanded(child: displayTokyoTrainList())]),
         ),
       ),
     );
@@ -41,26 +54,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with ControllersMixin<H
   Widget displayTokyoTrainList() {
     final List<Widget> list = <Widget>[];
 
-    for (var element in appParamState.keepTokyoTrainList) {
-      List<Widget> list2 = <Widget>[];
+    for (final TokyoTrainModel element in appParamState.keepTokyoTrainList) {
+      final List<Widget> list2 = <Widget>[];
 
-      for (var element2 in element.station) {
+      for (final TokyoStationModel element2 in element.station) {
         list2.add(
           Container(
             decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.white.withValues(alpha: 0.2))),
             ),
 
-            padding: EdgeInsets.all(2),
+            padding: const EdgeInsets.all(2),
 
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: <Widget>[
                 Text(element2.stationName),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [Text(element2.lat.toString()), Text(element2.lng.toString())],
+                  children: <Widget>[Text(element2.lat.toString()), Text(element2.lng.toString())],
                 ),
               ],
             ),
@@ -70,30 +83,38 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with ControllersMixin<H
 
       list.add(
         Stack(
-          children: [
+          children: <Widget>[
             Container(height: 70, decoration: BoxDecoration(color: Colors.yellowAccent.withValues(alpha: 0.1))),
 
             Container(
               decoration: BoxDecoration(border: Border.all(color: Colors.white.withValues(alpha: 0.2))),
-              margin: EdgeInsets.all(5),
-              padding: EdgeInsets.all(5),
+              margin: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
 
               child: Column(
-                children: [
+                children: <Widget>[
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: <Widget>[
                       Text(element.trainName),
 
-                      IconButton(onPressed: () {}, icon: Icon(Icons.stacked_line_chart)),
+                      IconButton(
+                        onPressed: () {
+                          TokyoTrainDialog(
+                            context: context,
+                            widget: TrainMapAlert(trainModel: element),
+                          );
+                        },
+                        icon: const Icon(Icons.stacked_line_chart),
+                      ),
                     ],
                   ),
 
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   Row(
-                    children: [
-                      SizedBox(width: 50),
+                    children: <Widget>[
+                      const SizedBox(width: 50),
 
                       Expanded(child: Column(children: list2)),
                     ],

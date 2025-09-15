@@ -1,14 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tokyo_station/models/tokyo_train_model.dart';
 
 import '../../../data/http/client.dart';
 import '../../../data/http/path.dart';
 import '../../../extensions/extensions.dart';
+import '../../../models/tokyo_train_model.dart';
 import '../../../utility/utility.dart';
 
 part 'tokyo_train.freezed.dart';
-
 part 'tokyo_train.g.dart';
 
 @freezed
@@ -31,7 +30,7 @@ class TokyoTrain extends _$TokyoTrain {
     final HttpClient client = ref.read(httpClientProvider);
 
     try {
-      List<TokyoTrainModel> list = <TokyoTrainModel>[];
+      final List<TokyoTrainModel> list = <TokyoTrainModel>[];
 
       // ignore: always_specify_types
       await client.post(path: APIPath.getTokyoTrainStation).then((value) {
