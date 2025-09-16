@@ -74,8 +74,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with ControllersMixin<H
 
       if (appParamState.jrJogaiFlag) {
         final RegExp reg = RegExp('JR');
+        final RegExp reg2 = RegExp('新幹線');
 
-        if (reg.firstMatch(element.trainName) != null) {
+        if (reg.firstMatch(element.trainName) != null || reg2.firstMatch(element.trainName) != null) {
           flag = false;
         }
       }

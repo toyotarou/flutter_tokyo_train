@@ -110,8 +110,9 @@ class _TrainMapAlertState extends ConsumerState<TrainMapAlert> with ControllersM
 
         if (appParamState.jrJogaiFlag) {
           final RegExp reg = RegExp('JR');
+          final RegExp reg2 = RegExp('新幹線');
 
-          if (reg.firstMatch(element2.trainName) != null) {
+          if (reg.firstMatch(element2.trainName) != null || reg2.firstMatch(element2.trainName) != null) {
             flag = false;
           }
         }
