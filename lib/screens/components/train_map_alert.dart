@@ -106,11 +106,23 @@ class _TrainMapAlertState extends ConsumerState<TrainMapAlert> with ControllersM
 
     if (widget.trainModel == null) {
       for (final TokyoTrainModel element2 in appParamState.keepTokyoTrainList) {
-        for (final TokyoStationModel element in element2.station) {
-          latList.add(element.lat);
-          lngList.add(element.lng);
+        bool flag = true;
 
-          latLngList.add(LatLng(element.lat, element.lng));
+        if (appParamState.jrJogaiFlag) {
+          final RegExp reg = RegExp('JR');
+
+          if (reg.firstMatch(element2.trainName) != null) {
+            flag = false;
+          }
+        }
+
+        if (flag) {
+          for (final TokyoStationModel element in element2.station) {
+            latList.add(element.lat);
+            lngList.add(element.lng);
+
+            latLngList.add(LatLng(element.lat, element.lng));
+          }
         }
       }
     } else {
@@ -164,7 +176,7 @@ class _TrainMapAlertState extends ConsumerState<TrainMapAlert> with ControllersM
       stationMarkerList.add(
         Marker(
           point: element,
-          child: const Icon(Icons.location_on, color: Colors.redAccent),
+          child: Icon(Icons.location_on, color: (appParamState.jrJogaiFlag) ? Colors.blueAccent : Colors.redAccent),
         ),
       );
     }
