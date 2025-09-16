@@ -69,7 +69,10 @@ class _MyAppState extends ConsumerState<MyApp> with ControllersMixin<MyApp> {
       debugShowCheckedModeBanner: false,
       home: GestureDetector(
         onTap: () => primaryFocus?.unfocus(),
-        child: HomeScreen(tokyoTrainList: tokyoTrainState.tokyoTrainList),
+        child: HomeScreen(
+          tokyoTrainList: tokyoTrainState.tokyoTrainList,
+          tokyoStationMap: tokyoTrainState.tokyoStationMap,
+        ),
       ),
     );
   }

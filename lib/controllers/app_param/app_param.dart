@@ -13,9 +13,14 @@ class AppParamState with _$AppParamState {
   const factory AppParamState({
     @Default(<TokyoTrainModel>[]) List<TokyoTrainModel> keepTokyoTrainList,
 
+    @Default(<String, List<TokyoStationModel>>{}) Map<String, List<TokyoStationModel>> keepTokyoStationMap,
+
     ///
     @Default(0) double currentZoom,
     @Default(5) int currentPaddingIndex,
+
+    ///
+    @Default(false) bool jrJogaiFlag,
   }) = _AppParamState;
 }
 
@@ -30,8 +35,21 @@ class AppParam extends _$AppParam {
   ///
   void setKeepTokyoTrainList({required List<TokyoTrainModel> list}) => state = state.copyWith(keepTokyoTrainList: list);
 
+  ///
+  void setKeepTokyoStationMap({required Map<String, List<TokyoStationModel>> map}) =>
+      state = state.copyWith(keepTokyoStationMap: map);
+
   //===================================================
 
   ///
   void setCurrentZoom({required double zoom}) => state = state.copyWith(currentZoom: zoom);
+
+  ///
+  void setJrJogaiFlag() {
+    if (state.jrJogaiFlag) {
+      state = state.copyWith(jrJogaiFlag: false);
+    } else {
+      state = state.copyWith(jrJogaiFlag: true);
+    }
+  }
 }

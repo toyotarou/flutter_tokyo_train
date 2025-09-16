@@ -10,9 +10,10 @@ import '../../models/tokyo_train_model.dart';
 import '../../utility/tile_provider.dart';
 
 class TrainMapAlert extends ConsumerStatefulWidget {
-  const TrainMapAlert({super.key, this.trainModel});
+  const TrainMapAlert({super.key, this.trainModel, this.selectedTrainName});
 
   final TokyoTrainModel? trainModel;
+  final List<String>? selectedTrainName;
 
   @override
   ConsumerState<TrainMapAlert> createState() => _TrainMapAlertState();
